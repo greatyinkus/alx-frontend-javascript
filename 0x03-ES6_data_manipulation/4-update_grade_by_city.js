@@ -1,7 +1,22 @@
-/* eslint-disable import/extensions */
-import getListStudents from './0-get_list_students.js';
-import updateStudentGradeByCity from './4-update_grade_by_city.js';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-prototype-builtins */
+export default function updateStudentGradeByCity(list, city, newGrade) {
+  return list
+    .filter((obj) => obj.location === city)
+    .map((student) => {
+    //   console.log(newGrade);
+      newGrade.map((studentGrade) => {
+        if (studentGrade.studentId === student.id) {
+          // eslint-disable-next-line no-param-reassign
+          student.grade = studentGrade.grade;
+        }
 
-console.log(updateStudentGradeByCity(getListStudents(), 'San Francisco', [{ studentId: 5, grade: 97 }, { studentId: 1, grade: 86 }]));
+        if (!student.hasOwnProperty('grade')) {
+          student.grade = 'N/A';
+        }
+        return student;
+      });
 
-console.log(updateStudentGradeByCity(getListStudents(), 'San Francisco', [{ studentId: 5, grade: 97 }]));
+      return student;
+    });
+}
